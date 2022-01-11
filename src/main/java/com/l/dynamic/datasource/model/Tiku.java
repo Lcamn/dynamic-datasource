@@ -1,11 +1,9 @@
 package com.l.dynamic.datasource.model;
 
 import com.alibaba.fastjson.JSON;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.Serializable;
+import lombok.experimental.Accessors;
 
 /**
  * @description tiku
@@ -15,6 +13,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
+@Accessors(chain = true)
 public class Tiku {
 
 
@@ -31,7 +30,7 @@ public class Tiku {
     private String option;
 
 
-    private Integer datetime;
+    private String datetime;
 
     @Override
     public String toString() {

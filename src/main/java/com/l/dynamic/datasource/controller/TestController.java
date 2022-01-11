@@ -35,8 +35,6 @@ public class TestController {
         log.info(res.toString());
         //用json的方法toJavaList，参数放入想转的集合对象就可以了
         //List<Tiku> monthTaskRes = res.toJavaList(Tiku.class);
-
-
         log.info(s);
         return Res.ok(null);
     }
