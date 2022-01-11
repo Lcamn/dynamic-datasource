@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: dynamic-datasource
@@ -8,17 +9,20 @@ spring:
       datasource:
         master:
           driver-class-name: org.sqlite.JDBC
-          url: jdbc:sqlite::resource:db/tiku.db
+          #url: jdbc:sqlite::resource:db/tiku.db
+          url: jdbc:sqlite:src/main/resources/db/tiku.db
           username:
           password:
         db1:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://127.0.0.1:3306/test
           username: root
-          password: 1234
+          password:
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
 logging:
   level:
     com:
        l: debug
+server:
+  port: 8082

@@ -10,4 +10,6 @@ public interface TiKuService {
     Integer sync();
 
     Integer save();
+
+    void test(String sql);
 }

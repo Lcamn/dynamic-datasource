@@ -41,7 +41,7 @@ public class TiKuServiceImpl implements TiKuService {
             tiKuMapper.insert(tiku);
             i++;
 
-            if (i > 10) return i;
+
         }
         return i;
     }
@@ -55,5 +55,11 @@ public class TiKuServiceImpl implements TiKuService {
                 .setWronganswer("w")
                 .setDatetime("2022-01-11 14:15:51");
         return tiKuMapper.insert(tiku);
+    }
+
+    @Override
+    public void test(String sql) {
+      int i =   tiKuMapper.test(sql);
+      log.info("数量。{}",i);
     }
 }

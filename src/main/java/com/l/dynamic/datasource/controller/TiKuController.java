@@ -4,9 +4,7 @@ import com.l.dynamic.datasource.entity.Res;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TiKuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +29,10 @@ public class TiKuController {
     @PostMapping("/save")
     public Res<Integer> save() {
         return Res.ok(tiKuService.save());
+    }
+
+    @PostMapping("/test")
+    public void test(@RequestParam("sql") String sql){
+        tiKuService.test(sql);
     }
 }

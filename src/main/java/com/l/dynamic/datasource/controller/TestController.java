@@ -24,18 +24,33 @@ public class TestController {
     private TestService testService;
 
     @GetMapping("/t")
-    public Res<List<Tiku>>  test(@RequestParam("ss") String ss) {
+    public Res<List<Tiku>> test(@RequestParam("ss") String ss) {
         //String s = HttpUtil.doGet(ss);
-         String s = HttpOk.doGet(ss);
+        log.info("ss--->{}", ss);
+        String s = HttpOk.doGet(ss);
 
         JSONArray res = JSON.parseArray(s);
-        List<Tiku> tikus = res.toJavaList(Tiku.class);
-        System.out.println(tikus);
+        assert res != null;
+        for (Object re : res) {
+            List<String> child = (List<String>) re;
+            setToTiku(child);
 
-        log.info(res.toString());
+
+        }
         //用json的方法toJavaList，参数放入想转的集合对象就可以了
         //List<Tiku> monthTaskRes = res.toJavaList(Tiku.class);
-        log.info(s);
+
         return Res.ok(null);
+    }
+
+    private void setToTiku(List<String> child) {
+        Tiku tiku = new Tiku();
+        tiku.setQuestion(child.get(0));
+        tiku.setAnswer(child.get(1));
+        tiku.setWronganswer(child.get(2));
+        tiku.setOption(child.get(3));
+        tiku.setDatetime(child.get(4));
+
+        log.info("实体类Tiku。{}",tiku);
     }
 }
