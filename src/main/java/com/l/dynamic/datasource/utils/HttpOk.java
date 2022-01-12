@@ -1,17 +1,11 @@
 package com.l.dynamic.datasource.utils;
 
 import com.alibaba.fastjson.JSON;
-
 import com.l.dynamic.datasource.config.InvalidArgumentException;
 import lombok.extern.slf4j.Slf4j;
-
 import okhttp3.*;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
 import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -27,7 +21,8 @@ public final class HttpOk {
                 .connectTimeout(10000, TimeUnit.SECONDS)
                 .readTimeout(10000, TimeUnit.SECONDS)
                 .writeTimeout(10000, TimeUnit.SECONDS)
-                .sslSocketFactory(createSSLSocketFactory())
+                .sslSocketFactory(SSLSocketClient.getSSLSocketFactory())
+                .hostnameVerifier(SSLSocketClient.getHostnameVerifier())
                 .addInterceptor(new HttpLogInterceptor())
                 .build();
     }
@@ -158,17 +153,5 @@ public final class HttpOk {
         return headers;
     }
 
-    private static SSLSocketFactory createSSLSocketFactory() {
-        SSLSocketFactory ssfFactory = null;
-
-        try {
-            SSLContext sc = SSLContext.getInstance("TLS");
-            sc.init(null, new TrustManager[]{new TrustAllcert()}, new SecureRandom());
-            ssfFactory = sc.getSocketFactory();
-        } catch (Exception e) {
-        }
-
-        return ssfFactory;
-    }
 }
 

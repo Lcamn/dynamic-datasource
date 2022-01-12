@@ -1,7 +1,5 @@
 package com.l.dynamic.datasource.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.l.dynamic.datasource.entity.Res;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TestService;
@@ -24,23 +22,23 @@ public class TestController {
     private TestService testService;
 
     @GetMapping("/t")
-    public Res<List<Tiku>> test(@RequestParam("ss") String ss) {
+    public Res test(@RequestParam("ss") String ss) {
         //String s = HttpUtil.doGet(ss);
         log.info("ss--->{}", ss);
         String s = HttpOk.doGet(ss);
 
-        JSONArray res = JSON.parseArray(s);
-        assert res != null;
-        for (Object re : res) {
-            List<String> child = (List<String>) re;
-            setToTiku(child);
-
-
-        }
+        // JSONArray res = JSON.parseArray(s);
+        // assert res != null;
+        // for (Object re : res) {
+        //     List<String> child = (List<String>) re;
+        //     setToTiku(child);
+        //
+        //
+        // }
         //用json的方法toJavaList，参数放入想转的集合对象就可以了
         //List<Tiku> monthTaskRes = res.toJavaList(Tiku.class);
 
-        return Res.ok(null);
+        return Res.ok(s);
     }
 
     private void setToTiku(List<String> child) {
