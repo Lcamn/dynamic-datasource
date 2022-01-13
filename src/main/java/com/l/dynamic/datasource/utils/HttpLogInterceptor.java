@@ -60,7 +60,9 @@ public class HttpLogInterceptor implements Interceptor {
 
         rBody = buffer.clone().readString(charset);
 
-        log.info("收到响应: \r\nRequestId: {}\r\n请求url：{}\r\n请求body：{}\r\nResponseCode:{}\r\n耗时: {}ms\r\nResponse: {}", startNs, response.request().url(), body, response.code(), tookMs, rBody);
+        log.info("收到响应: " +
+                "\r\nRequestId: {}\r\n请求url：{}\r\n请求body：{}" +
+                "\r\nResponseCode:{}\r\n耗时: {}ms\r\nResponse: {}", startNs, response.request().url(), body, response.code(), tookMs, rBody.substring(1, 100));
 
         return response;
     }

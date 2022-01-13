@@ -1,13 +1,12 @@
 package com.l.dynamic.datasource.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.l.dynamic.datasource.entity.Res;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TiKuService;
+import com.l.dynamic.datasource.utils.HttpOk;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,5 +36,13 @@ public class TiKuController {
     @PostMapping("/test")
     public void test(@RequestParam("sql") String sql) {
         tiKuService.test(sql);
+    }
+
+    @GetMapping("/net")
+    public String getNetQuestions() {
+        String s = HttpOk.doGet("https://tiku.786345.xyz/getAnswerByQuestion");
+        JSONArray jsonArray = JSONArray.parseArray(s);
+        System.out.println(jsonArray.size());
+        return s;
     }
 }

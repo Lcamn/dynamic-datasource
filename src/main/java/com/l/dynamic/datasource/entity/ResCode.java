@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum ResCode {
-    FAILED(-1, "操作失败"),
-    SUCCESS(0, "执行成功");
+    FAILED(500, "操作失败"),
+    SUCCESS(200, "执行成功");
 
     private final int code;
     private final String msg;
