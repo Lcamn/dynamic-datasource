@@ -12,4 +12,6 @@ public interface TiKuService {
     Integer save();
 
     void test(String sql);
+
+    Integer syncNet();
 }

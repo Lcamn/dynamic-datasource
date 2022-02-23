@@ -4,6 +4,7 @@ import com.l.dynamic.datasource.entity.Res;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TestService;
 import com.l.dynamic.datasource.utils.HttpOk;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
+@Api(tags = "测试")
 @RequestMapping("/test")
 public class TestController {
 

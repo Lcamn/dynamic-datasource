@@ -4,6 +4,11 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import java.io.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashMap;
 
 public class TestMethod {
 
@@ -68,10 +73,47 @@ public class TestMethod {
         }
     }
 
+    public static String sout(Integer i) {
+        String s = i + "";
+        System.out.println(i);
+        return s;
+    }
 
     public static void main(String[] args) throws IOException {
-        String name = "tiku.txt";
-        System.out.println(readFileByChars(name));
+        // String reg = "[^0-9]";
+        // String location = "珍岛13号楼2楼";
+        // Pattern compile = Pattern.compile(reg);
+        // Matcher matcher = compile.matcher(location);
+        // if (matcher.find()){
+        //     //String s = matcher.group(1);
+        //     String all = matcher.replaceAll("").trim();
+        //     System.out.println(all);
+        //     String building = all.substring(all.length()-1);
+        //     System.out.println(building);
+        //     String floor = all.substring(0,all.length()-1);
+        //     System.out.println(floor);
+        // }
+
+        LocalDateTime minDay = LocalDateTime.of(LocalDate.now(), LocalTime.MIN).with(DayOfWeek.MONDAY);
+        LocalDateTime MaxDay = LocalDateTime.of(LocalDate.now(), LocalTime.MAX).with(DayOfWeek.SUNDAY);
+        System.out.println(MaxDay);
+
+        HashMap<DishTime, Integer> maps = new HashMap<>();
+
+        DishTime dishTime1 = new DishTime();
+        DishTime dishTime2 = new DishTime();
+        //System.out.println("输出" + maps.get("1"));
+
+        maps.put(dishTime1, 1);
+        maps.put(dishTime2, 3);
+        System.out.println(maps);
+        System.out.println(LocalDateTime.now().minusDays(1));
+
+        LocalDate localDate = LocalDate.now().minusDays(1);
+        LocalTime localTime = LocalTime.now().minusHours(1);
+        LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
+        System.out.println(localDateTime);
+
     }
 
 }

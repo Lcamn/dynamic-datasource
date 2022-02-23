@@ -1,19 +1,23 @@
 package com.l.dynamic.datasource.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.l.dynamic.datasource.mapper.TiKuMapper;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TiKuService;
 import com.l.dynamic.datasource.utils.FileUtil;
+import com.l.dynamic.datasource.utils.HttpOk;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
-public class TiKuServiceImpl implements TiKuService {
+public class TiKuServiceImpl extends ServiceImpl<TiKuMapper, Tiku> implements TiKuService {
     @Autowired
     private TiKuMapper tiKuMapper;
 
@@ -26,8 +30,14 @@ public class TiKuServiceImpl implements TiKuService {
     public Integer sync() {
         tiKuMapper.delete(null);
         String s = FileUtil.readFileByChars("tiku.txt");
+        return updateByNet(s);
+    }
+
+    @NotNull
+    private Integer updateByNet(String s) {
         JSONArray jsonArray = JSONArray.parseArray(s);
         int i = 0;
+        List<Tiku> tikuList = new ArrayList<>();
         for (Object obj : jsonArray) {
 
             List<String> list = (List<String>) obj;
@@ -38,11 +48,12 @@ public class TiKuServiceImpl implements TiKuService {
                     .setOption(list.get(2))
                     .setWronganswer(list.get(3))
                     .setWronganswer(list.get(4));
-            tiKuMapper.insert(tiku);
+
+            tikuList.add(tiku);
+            // tiKuMapper.insert(tiku);
             i++;
-
-
         }
+        saveBatch(tikuList);
         return i;
     }
 
@@ -59,7 +70,15 @@ public class TiKuServiceImpl implements TiKuService {
 
     @Override
     public void test(String sql) {
-      int i =   tiKuMapper.test(sql);
-      log.info("数量。{}",i);
+        int i = tiKuMapper.test(sql);
+        log.info("数量。{}", i);
+    }
+
+    @Override
+    public Integer syncNet() {
+        String s = HttpOk.doGet("https://tiku.3141314.xyz/getAnswer");
+        tiKuMapper.delete(null);
+        return updateByNet(s);
+
     }
 }

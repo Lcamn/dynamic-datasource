@@ -28,6 +28,13 @@ public class TiKuController {
         return Res.ok(i);
     }
 
+    @PostMapping("/syncNet")
+    public Res<Integer> syncNet() {
+        Integer i = tiKuService.syncNet();
+        System.out.println("---------------------------");
+        return Res.ok(i);
+    }
+
     @PostMapping("/save")
     public Res<Integer> save() {
         return Res.ok(tiKuService.save());
@@ -40,7 +47,7 @@ public class TiKuController {
 
     @GetMapping("/net")
     public String getNetQuestions() {
-        String s = HttpOk.doGet("https://tiku.786345.xyz/getAnswerByQuestion");
+        String s = HttpOk.doGet("https://tiku.3141314.xyz/getAnswer");
         JSONArray jsonArray = JSONArray.parseArray(s);
         System.out.println(jsonArray.size());
         return s;
