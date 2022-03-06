@@ -8,7 +8,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TestMethod {
 
@@ -114,6 +118,53 @@ public class TestMethod {
         LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
         System.out.println(localDateTime);
 
+        String s = "113号楼12楼";
+        String reg = "[0-9]{1,3}";
+        Pattern compile = Pattern.compile(reg + "号");
+        Pattern compile2 = Pattern.compile(reg + "楼");
+        Matcher matcher = compile.matcher(s);
+        Matcher matcher2 = compile2.matcher(s);
+        if (matcher2.find()) {
+            String af = "楼 + ： " + matcher2.group();
+            String b = matcher2.group();
+            System.out.println(af + " -- " + matcher2.group().length());
+            int building = Integer.parseInt(b.substring(0, b.length() - 1));
+            System.out.println(building);
+        }
+
+        if (matcher.find()) {
+            String hao = "号 + : " + matcher.group();
+            System.out.println(hao);
+            String f = matcher.group();
+            int floor = Integer.parseInt(f.substring(0, f.length() - 1));
+            System.out.println(floor);
+        }
+        List<String> strings = new ArrayList<>();
+        strings.add("?");
+        System.out.println(strings.size());
+
+
+        LocalDate currentDate = LocalDate.now();
+        DayOfWeek dayOfWeek = currentDate.getDayOfWeek();
+        String k = String.valueOf(currentDate.getDayOfWeek());
+
+        System.out.println("K->" + k);
+
+        int openDay = 10;
+        LocalDate startDate = LocalDate.now().plusDays(1);
+        int a = 0;
+        for (int i = 0; i < openDay; i++) {
+            DayOfWeek week = startDate.plusDays(i).getDayOfWeek();
+            String day = String.valueOf(week);
+
+            if (day.equals("SATURDAY") || day.equals("SUNDAY")) {
+                a++;
+                openDay++;
+            }
+            System.out.println(day + " a = " + a);
+        }
+
+        System.out.println("a-->" + a);
     }
 
 }

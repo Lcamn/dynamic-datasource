@@ -28,6 +28,12 @@ public class TiKuController {
         return Res.ok(i);
     }
 
+    @PostMapping("/count")
+    public Res<Integer> count() {
+        Integer i = tiKuService.count(null);
+        return Res.ok(i);
+    }
+
     @PostMapping("/syncNet")
     public Res<Integer> syncNet() {
         Integer i = tiKuService.syncNet();

@@ -50,10 +50,10 @@ public class TiKuServiceImpl extends ServiceImpl<TiKuMapper, Tiku> implements Ti
                     .setWronganswer(list.get(4));
 
             tikuList.add(tiku);
-            // tiKuMapper.insert(tiku);
+            tiKuMapper.insert(tiku);
             i++;
         }
-        saveBatch(tikuList);
+        // saveBatch(tikuList);
         return i;
     }
 
@@ -81,4 +81,5 @@ public class TiKuServiceImpl extends ServiceImpl<TiKuMapper, Tiku> implements Ti
         return updateByNet(s);
 
     }
+
 }
