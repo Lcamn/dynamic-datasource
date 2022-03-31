@@ -18,6 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SpringBootTest
 class DynamicDatasourceApplicationTests {
@@ -47,7 +50,6 @@ class DynamicDatasourceApplicationTests {
         String alipayPublicKey = alipayCommon.getAlipayPublicKey();
         System.out.println("appid--->" + appid);
         System.out.println("alipayPublicKey--->" + alipayPublicKey);
-
         AlipayClient alipayClient = new DefaultAlipayClient(
                 alipayCommon.getGatewayUrl(),
                 alipayCommon.getAppId(),
@@ -56,11 +58,11 @@ class DynamicDatasourceApplicationTests {
                 alipayCommon.getCharset(),
                 alipayCommon.getAlipayPublicKey(),
                 alipayCommon.getSignType());
+
         AlipayDataBillAccountlogQueryRequest request = new AlipayDataBillAccountlogQueryRequest();
         request.setBizContent("{" +
-                "  \"start_time\":\"2022-01-01 00:00:00\"," +
-                "  \"end_time\":\"2022-01-20 00:00:00\" " +
-
+                "  \"start_time\":\"2022-03-01 00:00:00\"," +
+                "  \"end_time\":\"2022-03-17 10:00:00\" " +
 
                 "}");
         AlipayDataBillAccountlogQueryResponse response = alipayClient.execute(request);
@@ -104,5 +106,34 @@ class DynamicDatasourceApplicationTests {
         }
 
     }
+
+    @Test
+    void testM() {
+        String result = "T云合作款公积金";
+        Pattern p = Pattern.compile("(社保)|(公积金)|(提成)|(作废)|(遗失)");
+        //Pattern p = Pattern.compile("(作废)");
+        Matcher m = p.matcher(result);
+        while (m.find()) {
+            System.out.println(m.group());
+
+        }
+
+
+    }
+
+    @Test
+    void testC() {
+        LocalDate date = null;
+        String result = "2022/12/3";
+        if (result.contains("/")) {
+
+        }
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy/M/d");
+        date = LocalDate.parse(result, fmt);
+        System.out.println(date);
+
+
+    }
+
 
 }

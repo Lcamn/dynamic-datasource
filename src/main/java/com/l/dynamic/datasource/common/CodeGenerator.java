@@ -12,7 +12,11 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 public class CodeGenerator {
     public static void main(String[] args) {
+        generate("tb_alipay_data");
 
+    }
+
+    public static void generate(String name) {
         // 1、创建代码生成器
         AutoGenerator mpg = new AutoGenerator();
 
@@ -26,32 +30,32 @@ public class CodeGenerator {
         gc.setServiceName("%sService");    //去掉Service接口的首字母I
         gc.setIdType(IdType.ID_WORKER_STR); //主键策略
         gc.setDateType(DateType.TIME_PACK);//定义生成的实体类中日期类型
-        gc.setSwagger2(false);//开启Swagger2模式
+        gc.setSwagger2(true);//开启Swagger2模式
 
         mpg.setGlobalConfig(gc);
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/fund?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai");
+        dsc.setUrl("jdbc:mysql://192.168.7.189:3306/fund?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("1234");
+        dsc.setPassword("zhendao@2020");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(null); //模块名
-        pc.setParent("com.l.dynamic.datasource");
+        pc.setParent("net.l.dynamic.datasource");
         pc.setController("controller");
-        pc.setEntity("model");
-        pc.setService("service");
-        pc.setMapper("mapper");
+        pc.setEntity("controller");
+        pc.setService("controller");
+        pc.setMapper("controller");
         mpg.setPackageInfo(pc);
 
         // 5、策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("tb_fund_data_batch");//对那一张表生成代码
+        strategy.setInclude(name);//对那一张表生成代码
 
         strategy.setNaming(NamingStrategy.underline_to_camel);//数据库表映射到实体的命名策略
         strategy.setTablePrefix("tb_"); //生成实体时去掉表前缀

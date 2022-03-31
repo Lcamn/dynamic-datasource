@@ -18,4 +18,10 @@ public class AlipayController {
         String s = alipayService.test();
         return Res.ok(s);
     }
+
+    @PostMapping("/export")
+    public Res export() {
+        //String s = alipayService.export();
+        return Res.ok("s");
+    }
 }
