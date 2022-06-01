@@ -1,4 +1,4 @@
-package com.l.dynamic.datasource.Test;
+package com.l.dynamic.datasource.Tools;
 
 import com.alibaba.fastjson.JSONObject;
 import com.l.dynamic.datasource.entity.Tiao;
@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ReadJson {
+    // 挑战题库读取
     public static void main(String[] args) {
         String s = FileUtil.readFileByChars("paixu.json");
         JSONObject o = (JSONObject) JSONObject.parse(s);

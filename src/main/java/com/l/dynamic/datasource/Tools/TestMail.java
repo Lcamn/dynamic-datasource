@@ -1,4 +1,4 @@
-package com.l.dynamic.datasource.Test;
+package com.l.dynamic.datasource.Tools;
 
 public class TestMail {
     public static void test() {
