@@ -25,21 +25,24 @@ public class Rename {
                         System.out.println("文件夹:" + file.getAbsolutePath() + "，继续递归！");
                         recursiveTraversalFolder(file.getAbsolutePath(), subject);
                     } else {//是文件，判断是否需要重命名
-                        fileName = file.getName();
+                        newName = fileName = file.getName();
+
                         //读取word第一行
                         String docTitle = DocUtil.doc2String(file);
+                        System.out.println(docTitle);
                         parentPath = file.getParentFile();
                         if (fileName.contains(oldString)) {//文件名包含需要被替换的字符串
                             newName = fileName.replaceAll(oldString, newString);//新名字
-                            newDir = new File(parentPath + "/" + newName);//文件所在文件夹路径+新文件名
-                            file.renameTo(newDir);//重命名
+                            // newDir = new File(parentPath + "/" + newName);//文件所在文件夹路径+新文件名
+                            // file.renameTo(newDir);//重命名
                         }
-                        System.out.println(file.getName());
-                        String suffix = fileName.substring(file.getName().lastIndexOf("."));
-                        System.out.println(suffix);
-                        String num = file.getName().split("\\+")[0] + "+";
+
+                        String suffix = newName.substring(newName.lastIndexOf("."));
+
+                        String num = newName.split("\\+")[0] + "+";
                         newDir = new File(parentPath + "/" + num + subject + docTitle + suffix);
                         file.renameTo(newDir);
+                        System.out.println("new： " + file.getName());
                         System.out.println(newDir);
 
                     }
@@ -52,6 +55,6 @@ public class Rename {
 
 
     public static void main(String[] args) throws Exception {
-        recursiveTraversalFolder("E:\\测试Excel", "评测");
+        recursiveTraversalFolder("C:\\Users\\L\\Desktop\\新建文件夹", "逛逛+图文");
     }
 }
