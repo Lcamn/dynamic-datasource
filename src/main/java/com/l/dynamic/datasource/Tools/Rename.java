@@ -22,31 +22,30 @@ public class Rename {
                 File parentPath = new File("");//文件所在父级路径
                 for (File file : fileArr) {
                     if (file.isDirectory()) {//是文件夹，继续递归，如果需要重命名文件夹，这里可以做处理
-                        System.out.println("文件夹:" + file.getAbsolutePath() + "，继续递归！");
-                        recursiveTraversalFolder(file.getAbsolutePath(), subject);
+                        //System.out.println("文件夹:" + file.getAbsolutePath() + "，继续递归！");
+                        //recursiveTraversalFolder(file.getAbsolutePath(), subject);
                     } else {//是文件，判断是否需要重命名
                         newName = fileName = file.getName();
-
                         //读取word第一行
                         String docTitle = DocUtil.doc2String(file);
-                        System.out.println(docTitle);
+                        System.out.println("第一行：" + docTitle);
+
                         parentPath = file.getParentFile();
                         if (fileName.contains(oldString)) {//文件名包含需要被替换的字符串
                             newName = fileName.replaceAll(oldString, newString);//新名字
-                            // newDir = new File(parentPath + "/" + newName);//文件所在文件夹路径+新文件名
-                            // file.renameTo(newDir);//重命名
                         }
 
                         String suffix = newName.substring(newName.lastIndexOf("."));
-
                         String num = newName.split("\\+")[0] + "+";
-                        newDir = new File(parentPath + "/" + num + subject + docTitle + suffix);
+                        newDir = new File(parentPath + "\\" + num + subject + docTitle + suffix);
+                        System.out.println("new Name: " + newDir.getName());
                         file.renameTo(newDir);
-                        System.out.println("new： " + file.getName());
-                        System.out.println(newDir);
 
                     }
                 }
+
+                //打包
+                DocUtil.zip(path, subject, fileArr.length);
             }
         } else {
             System.out.println("文件不存在!");
@@ -55,6 +54,6 @@ public class Rename {
 
 
     public static void main(String[] args) throws Exception {
-        recursiveTraversalFolder("C:\\Users\\L\\Desktop\\新建文件夹", "逛逛+图文");
+        recursiveTraversalFolder("C:\\Users\\L\\Desktop\\新建文件夹\\3\\备份\\", "逛逛图文");
     }
 }

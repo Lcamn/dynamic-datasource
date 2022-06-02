@@ -6,8 +6,10 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayDataBillAccountlogQueryRequest;
+import com.alipay.api.request.AlipayDataBillBuyQueryRequest;
 import com.alipay.api.request.AlipayDataBillSellQueryRequest;
 import com.alipay.api.response.AlipayDataBillAccountlogQueryResponse;
+import com.alipay.api.response.AlipayDataBillBuyQueryResponse;
 import com.alipay.api.response.AlipayDataBillSellQueryResponse;
 import com.l.dynamic.datasource.config.AlipayCommon;
 import com.l.dynamic.datasource.utils.HttpOk;
@@ -61,9 +63,8 @@ class DynamicDatasourceApplicationTests {
 
         AlipayDataBillAccountlogQueryRequest request = new AlipayDataBillAccountlogQueryRequest();
         request.setBizContent("{" +
-                "  \"start_time\":\"2022-03-01 00:00:00\"," +
-                "  \"end_time\":\"2022-03-17 10:00:00\" " +
-
+                "  \"start_time\":\"2022-06-01 00:00:00\"," +
+                "  \"end_time\":\"2022-06-3 23:00:00\"" +
                 "}");
         AlipayDataBillAccountlogQueryResponse response = alipayClient.execute(request);
         System.out.println(response);
@@ -91,16 +92,41 @@ class DynamicDatasourceApplicationTests {
         AlipayDataBillSellQueryRequest request = new AlipayDataBillSellQueryRequest();
 
         request.setBizContent("{" +
-                "  \"start_time\":\"2022-01-01 00:00:00\"," +
-                "  \"end_time\":\"2022-01-20 00:00:00\"" +
-
-                "  \"page_no\":\"1\"," +
-                "  \"page_size\":\"10\"" +
+                "  \"start_time\":\"2022-05-01 00:00:00\"," +
+                "  \"end_time\":\"2022-05-31 23:00:00\"" +
                 "}");
         AlipayDataBillSellQueryResponse response = alipayClient.execute(request);
 
         if (response.isSuccess()) {
             System.out.println("调用成功");
+            System.out.println(JSON.toJSONString(response));
+        } else {
+            System.out.println("调用失败");
+        }
+
+    }
+
+    @Test
+    void in() throws AlipayApiException {
+        AlipayClient alipayClient = new DefaultAlipayClient(
+                alipayCommon.getGatewayUrl(),
+                alipayCommon.getAppId(),
+                alipayCommon.getPrivateKey(),
+                alipayCommon.getFormat(),
+                alipayCommon.getCharset(),
+                alipayCommon.getAlipayPublicKey(),
+                alipayCommon.getSignType());
+        AlipayDataBillBuyQueryRequest request = new AlipayDataBillBuyQueryRequest();
+
+        request.setBizContent("{" +
+                "  \"start_time\":\"2022-06-01 00:00:00\"," +
+                "  \"end_time\":\"2022-06-03 23:00:00\"" +
+                "}");
+        AlipayDataBillBuyQueryResponse response = alipayClient.execute(request);
+
+        if (response.isSuccess()) {
+            System.out.println("调用成功");
+            System.out.println(JSON.toJSONString(response));
         } else {
             System.out.println("调用失败");
         }
