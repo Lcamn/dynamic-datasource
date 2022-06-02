@@ -7,6 +7,11 @@ import java.io.File;
 public class Rename {
     public static void recursiveTraversalFolder(String path, String subject) throws Exception {
         subject = subject + "+";
+        char c = path.charAt(path.length() - 1);
+        if (!(c == '\\')) {
+            path = path + "\\";
+        }
+        System.out.println(path);
         File folder = new File(path);
         String oldString = "-";
         String newString = "+";
@@ -54,6 +59,6 @@ public class Rename {
 
 
     public static void main(String[] args) throws Exception {
-        recursiveTraversalFolder("C:\\Users\\L\\Desktop\\新建文件夹\\3\\备份\\", "逛逛图文");
+        recursiveTraversalFolder("C:\\Users\\L\\Desktop\\新建文件夹\\3\\备份", "逛逛图文");
     }
 }
