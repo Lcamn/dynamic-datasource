@@ -6,7 +6,6 @@ import java.io.File;
 
 public class Rename {
     public static void recursiveTraversalFolder(String path, String subject) throws Exception {
-        subject = subject + "+";
         char c = path.charAt(path.length() - 1);
         if (!(c == '\\')) {
             path = path + "\\";
@@ -42,7 +41,7 @@ public class Rename {
 
                         String suffix = newName.substring(newName.lastIndexOf("."));
                         String num = newName.split("\\+")[0] + "+";
-                        newDir = new File(parentPath + "\\" + num + subject + docTitle + suffix);
+                        newDir = new File(parentPath + "\\" + num + subject + "+" + docTitle + suffix);
                         System.out.println("new Name: " + newDir.getName());
                         file.renameTo(newDir);
 
