@@ -8,6 +8,7 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
+import org.springframework.util.ObjectUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class DocUtil {
         String[] split = document.getText().split("\n");
         document.close();
         fs.close();
-        return split[0].replaceAll("\r", "");
+        return ObjectUtils.isEmpty(split[0].replaceAll("\r", "")) ?
+                split[1].replaceAll("\r", "") : split[0].replaceAll("\r", "");
     }
 
 
