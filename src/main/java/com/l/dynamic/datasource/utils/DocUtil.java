@@ -42,7 +42,7 @@ public class DocUtil {
         document.close();
         fs.close();
         return ObjectUtils.isEmpty(split[0].replaceAll("\r", "")) ?
-                split[1].replaceAll("\r", "") : split[0].replaceAll("\r", "");
+                split[1].replaceAll("\r", "") : split[0].replaceAll("\r", "").trim();
     }
 
 

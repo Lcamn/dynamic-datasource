@@ -110,6 +110,6 @@ public class Rename {
 
     public static void main(String[] args) throws Exception {
         // recursiveTraversalFolder("C:\\Users\\L\\Desktop\\新建文件夹", "逛逛图文");
-        recursiveTraversalFolderWithoutSubject("C:\\Users\\L\\Desktop\\新建文件夹\\4", "万和");
+        recursiveTraversalFolderWithoutSubject("C:\\Users\\时晴\\Desktop\\新建文件夹\\69", "360洗衣机");
     }
 }
