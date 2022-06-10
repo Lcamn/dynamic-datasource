@@ -69,16 +69,11 @@ public class DocUtil {
             }
             zipOutputStream.putNextEntry(new ZipEntry(f.getName()));
             fileInputStream = new FileInputStream(f);
+            int len;
             byte[] bytes = new byte[1024];
-            int read;
-            while ((read = fileInputStream.read(bytes)) != -1) {
-                zipOutputStream.write(bytes);
+            while ((len = fileInputStream.read(bytes)) > 0) {
+                zipOutputStream.write(bytes, 0, len);
             }
-        }
-        byte[] bytes = new byte[1024];
-        int read;
-        while ((read = fileInputStream.read(bytes)) != -1) {
-            zipOutputStream.write(bytes);
         }
         fileInputStream.close();
         zipOutputStream.close();
