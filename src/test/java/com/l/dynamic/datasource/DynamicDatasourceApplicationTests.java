@@ -37,6 +37,7 @@ class DynamicDatasourceApplicationTests {
     void testTiku() {
         String s = HttpOk.doGet("https://tiku.786345.xyz/getAnswerByQuestion");
         JSONArray jsonArray = JSONArray.parseArray(s);
+
         System.out.println(jsonArray.size());
     }
 
