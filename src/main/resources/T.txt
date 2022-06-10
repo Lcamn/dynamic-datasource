@@ -1,2 +1,2 @@
-git config user.name "Lcamn"       //你的用户名
-git config user.email "lcamn7700@gmail.com" //你的邮箱地址
+git config user.name "Lcamn"
+git config user.email "lcamn7700@gmail.com"

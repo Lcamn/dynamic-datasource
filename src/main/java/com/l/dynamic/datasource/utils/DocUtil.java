@@ -71,7 +71,7 @@ public class DocUtil {
             fileInputStream = new FileInputStream(f);
             int len;
             byte[] bytes = new byte[1024];
-            while ((len = fileInputStream.read(bytes)) > 0) {
+            while ((len = fileInputStream.read(bytes)) != -1) {
                 zipOutputStream.write(bytes, 0, len);
             }
         }
