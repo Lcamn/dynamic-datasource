@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.l.dynamic.datasource.mapper.AlipayAccountMapper">
+    <select id="getAll" resultType="com.l.dynamic.datasource.entity.AccountReturn">
+        select account_no                            as accountNo,
+               aes_decrypt(alipay_public_key, 'key') as alipayPublicKey,
+               aes_decrypt(private_key, 'key')       as privateKey,
+               erp_name                              as companyName,
+               sign_type                             as signType,
+               format,
+               chatset                               as charset,
+               gateway_url                           as gatewayUrl,
+               app_id                                as appId
+        from tb_alipay_app a
+                 left join tb_alipay_account b
+                           on a.account_id = b.id
+                 left join tb_company c on b.company_id = c.id;
+    </select>
+</mapper>

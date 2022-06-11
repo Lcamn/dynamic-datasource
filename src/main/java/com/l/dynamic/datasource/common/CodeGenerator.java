@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 public class CodeGenerator {
     public static void main(String[] args) {
-        generate("tb_alipay_data");
+        generate("tb_alipay_account");
 
     }
 
@@ -36,21 +36,21 @@ public class CodeGenerator {
 
         // 3、数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.7.189:3306/fund?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/fund?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("zhendao@2020");
+        dsc.setPassword("123");
         dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
 
         // 4、包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(null); //模块名
-        pc.setParent("net.l.dynamic.datasource");
+        pc.setParent("com.l.dynamic.datasource");
         pc.setController("controller");
-        pc.setEntity("controller");
-        pc.setService("controller");
-        pc.setMapper("controller");
+        pc.setEntity("entity");
+        pc.setService("service");
+        pc.setMapper("mapper");
         mpg.setPackageInfo(pc);
 
         // 5、策略配置
