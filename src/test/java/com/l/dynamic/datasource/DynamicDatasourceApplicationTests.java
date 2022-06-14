@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.domain.AccountLogItemResult;
 import com.alipay.api.request.AlipayDataBillAccountlogQueryRequest;
 import com.alipay.api.request.AlipayDataBillBuyQueryRequest;
 import com.alipay.api.request.AlipayDataBillSellQueryRequest;
@@ -12,15 +13,20 @@ import com.alipay.api.response.AlipayDataBillAccountlogQueryResponse;
 import com.alipay.api.response.AlipayDataBillBuyQueryResponse;
 import com.alipay.api.response.AlipayDataBillSellQueryResponse;
 import com.l.dynamic.datasource.config.AlipayCommon;
+import com.l.dynamic.datasource.config.RedisKeyConsts;
 import com.l.dynamic.datasource.utils.HttpOk;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +34,9 @@ import java.util.regex.Pattern;
 class DynamicDatasourceApplicationTests {
     @Autowired
     private AlipayCommon alipayCommon;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Test
     void contextLoads() {
@@ -64,12 +73,26 @@ class DynamicDatasourceApplicationTests {
         AlipayDataBillAccountlogQueryRequest request = new AlipayDataBillAccountlogQueryRequest();
         request.setBizContent("{" +
                 "  \"start_time\":\"2022-06-01 00:00:00\"," +
-                "  \"end_time\":\"2022-06-3 23:00:00\"" +
+                "  \"end_time\":\"2022-06-12 23:00:00\"" +
                 "}");
         AlipayDataBillAccountlogQueryResponse response = alipayClient.execute(request);
         System.out.println(response);
         System.out.println(JSON.toJSONString(response));
 
+        List<AccountLogItemResult> detailListOld = response.getDetailList();
+        //TODO  缓存处理
+        for (AccountLogItemResult item : detailListOld) {
+            String opsKey = RedisKeyConsts.ALIPAY_CODE_OPERATE + item.getAccountLogId();
+            String opsValue = stringRedisTemplate.opsForValue().get(opsKey);
+            if (ObjectUtils.isEmpty(opsValue)) {
+                //缓存中不存在
+                stringRedisTemplate.opsForValue().set(opsKey, item.toString(), RedisKeyConsts.DEFAULT_LOCK_PERIOD_SECOND, TimeUnit.DAYS);
+
+                String s = stringRedisTemplate.opsForValue().get(opsKey);
+                System.out.println(("key:" + opsKey + " value：" + s));
+            }
+
+        }
 
         if (response.isSuccess()) {
             System.out.println("调用成功");
