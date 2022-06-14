@@ -43,6 +43,11 @@ public class TestController {
         return Res.ok(s);
     }
 
+    @GetMapping("/test")
+    public Res<String> test() {
+        return Res.ok("测试结果");
+    }
+
     private void setToTiku(List<String> child) {
         Tiku tiku = new Tiku();
         tiku.setQuestion(child.get(0));
@@ -51,6 +56,6 @@ public class TestController {
         tiku.setOption(child.get(3));
         tiku.setDatetime(child.get(4));
 
-        log.info("实体类Tiku。{}",tiku);
+        log.info("实体类Tiku。{}", tiku);
     }
 }
