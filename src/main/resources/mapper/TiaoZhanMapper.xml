@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.l.dynamic.datasource.mapper.TiaoZhanMapper">
+
+
+    <select id="getAllTiao" resultType="com.l.dynamic.datasource.model.TiaoZhan">
+        select *
+        from tiaozhan
+    </select>
+</mapper>

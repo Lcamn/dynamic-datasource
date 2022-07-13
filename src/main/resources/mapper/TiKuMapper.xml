@@ -6,4 +6,8 @@
     <select id="test" resultType="integer">
         ${sql}
     </select>
+    <select id="getAllTiao" resultType="com.l.dynamic.datasource.model.TiaoZhan">
+        select *
+        from tiaozhan
+    </select>
 </mapper>

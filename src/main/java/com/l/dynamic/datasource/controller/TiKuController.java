@@ -2,8 +2,10 @@ package com.l.dynamic.datasource.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.l.dynamic.datasource.entity.Res;
+import com.l.dynamic.datasource.model.TiaoZhan;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TiKuService;
+import com.l.dynamic.datasource.service.TiaoZhanService;
 import com.l.dynamic.datasource.utils.HttpOk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import java.util.List;
 public class TiKuController {
     @Autowired
     private TiKuService tiKuService;
+    @Autowired
+    private TiaoZhanService tiaoZhanService;
 
     @PostMapping("/find")
     public Res<List<Tiku>> find() {
@@ -32,6 +36,12 @@ public class TiKuController {
     public Res<Integer> count() {
         Integer i = tiKuService.count(null);
         return Res.ok(i);
+    }
+
+    @PostMapping("/tiao")
+    public Res<List<TiaoZhan>> tiao() {
+        List<TiaoZhan> list = tiaoZhanService.getAllTiao();
+        return Res.ok(list);
     }
 
     @PostMapping("/syncNet")
@@ -57,5 +67,10 @@ public class TiKuController {
         JSONArray jsonArray = JSONArray.parseArray(s);
         System.out.println(jsonArray.size());
         return s;
+    }
+
+    @GetMapping("paixu")
+    public int getPaixu() {
+        return 0;
     }
 }

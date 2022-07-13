@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.io.Serializable;
 import java.util.Optional;
 
@@ -84,46 +83,6 @@ public class Res<T> implements Serializable {
         return this;
     }
 
-    // public boolean equals(final Object o) {
-    //     if (o == this) {
-    //         return true;
-    //     } else if (!(o instanceof Res)) {
-    //         return false;
-    //     } else {
-    //         Res<?> other = (Res) o;
-    //         if (!other.canEqual(this)) {
-    //             return false;
-    //         } else if (this.getCode() != other.getCode()) {
-    //             return false;
-    //         } else {
-    //             Object this$data = this.getData();
-    //             Object other$data = other.getData();
-    //             if (this$data == null) {
-    //                 if (other$data != null) {
-    //                     return false;
-    //                 }
-    //             } else if (!this$data.equals(other$data)) {
-    //                 return false;
-    //             }
-    //
-    //             Object this$msg = this.getMsg();
-    //             Object other$msg = other.getMsg();
-    //             if (this$msg == null) {
-    //                 if (other$msg != null) {
-    //                     return false;
-    //                 }
-    //             } else if (!this$msg.equals(other$msg)) {
-    //                 return false;
-    //             }
-    //
-    //             return true;
-    //         }
-    //     }
-    // }
-
-    // protected boolean canEqual(final Object other) {
-    //     return other instanceof Res;
-    // }
 
 }
 
