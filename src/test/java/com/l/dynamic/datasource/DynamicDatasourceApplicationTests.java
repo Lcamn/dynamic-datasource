@@ -81,17 +81,21 @@ class DynamicDatasourceApplicationTests {
 
         List<AccountLogItemResult> detailListOld = response.getDetailList();
         //TODO  缓存处理
-        for (AccountLogItemResult item : detailListOld) {
-            String opsKey = RedisKeyConsts.ALIPAY_CODE_OPERATE + item.getAccountLogId();
-            String opsValue = stringRedisTemplate.opsForValue().get(opsKey);
-            if (ObjectUtils.isEmpty(opsValue)) {
-                //缓存中不存在
-                stringRedisTemplate.opsForValue().set(opsKey, item.toString(), RedisKeyConsts.DEFAULT_LOCK_PERIOD_SECOND, TimeUnit.DAYS);
+        try {
+            for (AccountLogItemResult item : detailListOld) {
+                String opsKey = RedisKeyConsts.ALIPAY_CODE_OPERATE + item.getAccountLogId();
+                String opsValue = stringRedisTemplate.opsForValue().get(opsKey);
+                if (ObjectUtils.isEmpty(opsValue)) {
+                    //缓存中不存在
+                    stringRedisTemplate.opsForValue().set(opsKey, item.toString(), RedisKeyConsts.DEFAULT_LOCK_PERIOD_SECOND, TimeUnit.DAYS);
 
-                String s = stringRedisTemplate.opsForValue().get(opsKey);
-                System.out.println(("key:" + opsKey + " value：" + s));
+                    String s = stringRedisTemplate.opsForValue().get(opsKey);
+                    System.out.println(("key:" + opsKey + " value：" + s));
+                }
+
             }
-
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
         if (response.isSuccess()) {

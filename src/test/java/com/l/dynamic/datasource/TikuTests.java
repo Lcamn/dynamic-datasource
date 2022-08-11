@@ -48,8 +48,8 @@ class TikuTests {
             for (String s1 : option) {
                 str.append(s1);
             }
-            TiaoZhan tiaoZhan = TiaoZhan.of()
-                    .setQuestion(tmp.getQuestion())
+            TiaoZhan tiaoZhan = new TiaoZhan();
+            tiaoZhan.setQuestion(tmp.getQuestion())
                     .setAnswer(tmp.getAnswer())
                     .setOption(str.toString());
             tiaoZhanList.add(tiaoZhan);

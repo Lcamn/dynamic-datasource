@@ -112,8 +112,10 @@ public class Rename {
         if (!(c == '\\')) {
             path = path + "\\";
         }
+        DocUtil.copyFile(path);
+
         File folder = new File(path);
-        String[] oldString = { "-", "_", "＋" };
+        String[] oldString = { "-", "_", "＋", "—" };
         String newString = "+";
 
         if (!folder.exists()) {
@@ -165,6 +167,9 @@ public class Rename {
 
 
     public static void main(String[] args) throws Exception {
-        //renameAuto("C:\\Users\\L\\Desktop\\新建文件夹\\712\\新建文件夹\\测试", "zip", false);
+
+        renameAuto("C:\\Users\\L\\Desktop\\新建文件夹\\新建文件夹 (2)\\84", "zip", false);
+
+
     }
 }

@@ -11,6 +11,8 @@ import org.apache.tools.zip.ZipOutputStream;
 import org.springframework.util.ObjectUtils;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.zip.Adler32;
@@ -79,6 +81,65 @@ public class DocUtil {
         zipOutputStream.close();
         System.out.println("打包完成。 " + outputFIleName);
         return outputFIleName;
+    }
+
+
+    public static void copyFile(String path) throws Exception {
+        File sourceFile = new File(path);
+        String newFileDirectory = path + "新建" + LocalDate.now().getDayOfMonth();
+        // 2、确定流
+        boolean b = createDirectory(newFileDirectory);
+        if (!b) {
+            return;
+        }
+
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        File[] files = sourceFile.listFiles();
+        if (ObjectUtils.isEmpty(files)) {
+            System.out.println("文件夹为空");
+            return;
+        }
+        for (File f : files) {
+            if (f.isDirectory()) {
+                continue;
+            }
+            String name = f.getName();
+            File file = new File(newFileDirectory + "\\" + name);
+
+            in = Files.newInputStream(f.toPath());
+            out = Files.newOutputStream(file.toPath());
+            byte[] flush = new byte[1024];
+            int len = -1;
+            while ((len = in.read(flush)) != -1) {
+                out.write(flush, 0, len);
+            }
+        }
+        if (out != null) {
+            out.flush();
+            out.close();
+        }
+
+
+    }
+
+    private static boolean createDirectory(String path) {
+        File newFileDirectory = new File(path);
+        boolean b = true;
+        if (!newFileDirectory.exists()) {
+            b = newFileDirectory.mkdir();
+        } else {
+            File[] files = newFileDirectory.listFiles();
+            if (ObjectUtils.isEmpty(files)) {
+                return true;
+            }
+            for (File fs : files) {
+                b = fs.delete();
+            }
+        }
+        return b;
     }
 
 

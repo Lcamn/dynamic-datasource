@@ -1,16 +1,20 @@
 package com.l.dynamic.datasource.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.l.dynamic.datasource.entity.Res;
 import com.l.dynamic.datasource.model.TiaoZhan;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TiKuService;
 import com.l.dynamic.datasource.service.TiaoZhanService;
-import com.l.dynamic.datasource.utils.HttpOk;
+import com.l.dynamic.datasource.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/tiku")
@@ -32,11 +36,6 @@ public class TiKuController {
         return Res.ok(i);
     }
 
-    @PostMapping("/count")
-    public Res<Integer> count() {
-        Integer i = tiKuService.count(null);
-        return Res.ok(i);
-    }
 
     @PostMapping("/tiao")
     public Res<List<TiaoZhan>> tiao() {
@@ -51,10 +50,6 @@ public class TiKuController {
         return Res.ok(i);
     }
 
-    @PostMapping("/save")
-    public Res<Integer> save() {
-        return Res.ok(tiKuService.save());
-    }
 
     @PostMapping("/test")
     public void test(@RequestParam("sql") String sql) {
@@ -63,10 +58,24 @@ public class TiKuController {
 
     @GetMapping("/net")
     public String getNetQuestions() {
-        String s = HttpOk.doGet("https://tiku.3141314.xyz/getAnswer");
-        JSONArray jsonArray = JSONArray.parseArray(s);
-        System.out.println(jsonArray.size());
-        return s;
+        String s = FileUtil.readFileByChars("tiku2.json");
+
+        JSONObject jsonObject = JSONObject.parseObject(s);
+        ArrayList<TiaoZhan> list = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            TiaoZhan tiaozhan = new TiaoZhan();
+            String s1 = entry.getKey().replaceAll(" ", "");
+            String question = s1.substring(0, s1.indexOf("|"));
+            String option = s1.substring(s1.indexOf("|")).replaceAll("\\|", "");
+            String answer = (String) entry.getValue();
+            tiaozhan.setQuestion(question).setAnswer(answer).setOption(option);
+            list.add(tiaozhan);
+
+
+        }
+        tiaoZhanService.sync(list);
+        JSONArray array = JSONArray.parseArray(JSON.toJSONString(list));
+        return array.toString();
     }
 
     @GetMapping("paixu")

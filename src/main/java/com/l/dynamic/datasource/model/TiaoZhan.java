@@ -3,7 +3,6 @@ package com.l.dynamic.datasource.model;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -11,7 +10,6 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("tiaozhan")
-@RequiredArgsConstructor(staticName = "of")
 public class TiaoZhan {
     private String question;
     private String answer;

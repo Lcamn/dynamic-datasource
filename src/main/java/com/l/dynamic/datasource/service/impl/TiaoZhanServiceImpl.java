@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,4 +23,11 @@ public class TiaoZhanServiceImpl extends ServiceImpl<TiaoZhanMapper, TiaoZhan> i
         return tiaoZhanMapper.getAllTiao();
     }
 
+    @Override
+    public int sync(ArrayList<TiaoZhan> list) {
+        int delete = tiaoZhanMapper.delete(null);
+        System.out.println("已删除： " + delete);
+        this.saveBatch(list);
+        return list.size();
+    }
 }
