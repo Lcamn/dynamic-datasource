@@ -1,6 +1,7 @@
 package com.l.dynamic.datasource.Tools;
 
 import com.l.dynamic.datasource.utils.DocUtil;
+import org.springframework.util.ObjectUtils;
 
 import java.io.File;
 
@@ -112,9 +113,13 @@ public class Rename {
         if (!(c == '\\')) {
             path = path + "\\";
         }
-        DocUtil.copyFile(path);
+        String operatePath = DocUtil.copyFile(path);
+        if (ObjectUtils.isEmpty(operatePath)) {
+            System.out.println("操作失败");
+            return;
+        }
 
-        File folder = new File(path);
+        File folder = new File(operatePath);
         String[] oldString = { "-", "_", "＋", "—" };
         String newString = "+";
 
@@ -161,14 +166,14 @@ public class Rename {
         }
         if (zip) {
             //打包
-            DocUtil.zip(path, zipName, fileArr.length);
+            DocUtil.zip(operatePath, zipName, fileArr.length);
         }
     }
 
 
     public static void main(String[] args) throws Exception {
 
-        renameAuto("C:\\Users\\L\\Desktop\\新建文件夹\\新建文件夹 (2)\\84", "zip", false);
+        renameAuto("C:\\Users\\L\\Desktop\\新建文件夹\\新建文件夹 (2)\\84", "zip", true);
 
 
     }

@@ -55,6 +55,10 @@ public class DocUtil {
 
     public static String zip(String filePath, String subject, int count) throws Exception {
         File file = new File(filePath);
+        if (ObjectUtils.isEmpty(file.listFiles())) {
+            return "空文件夹";
+        }
+        count = file.listFiles().length;
         String outputFIleName = filePath + subject + count + "篇.zip";
         ArrayList<File> fileList = new ArrayList<>();
         if (file.isDirectory()) {
@@ -84,13 +88,13 @@ public class DocUtil {
     }
 
 
-    public static void copyFile(String path) throws Exception {
+    public static String copyFile(String path) throws Exception {
         File sourceFile = new File(path);
         String newFileDirectory = path + "新建" + LocalDate.now().getDayOfMonth();
         // 2、确定流
         boolean b = createDirectory(newFileDirectory);
         if (!b) {
-            return;
+            return null;
         }
 
 
@@ -100,7 +104,7 @@ public class DocUtil {
         File[] files = sourceFile.listFiles();
         if (ObjectUtils.isEmpty(files)) {
             System.out.println("文件夹为空");
-            return;
+            return null;
         }
         for (File f : files) {
             if (f.isDirectory()) {
@@ -117,20 +121,23 @@ public class DocUtil {
                 out.write(flush, 0, len);
             }
         }
+        System.out.println("完成");
         if (out != null) {
             out.flush();
             out.close();
         }
 
-
+        return newFileDirectory + "\\";
     }
 
     private static boolean createDirectory(String path) {
         File newFileDirectory = new File(path);
         boolean b = true;
         if (!newFileDirectory.exists()) {
+            System.out.println("新建文件夹： " + path);
             b = newFileDirectory.mkdir();
         } else {
+            System.out.println("清空文件夹： " + path);
             File[] files = newFileDirectory.listFiles();
             if (ObjectUtils.isEmpty(files)) {
                 return true;
