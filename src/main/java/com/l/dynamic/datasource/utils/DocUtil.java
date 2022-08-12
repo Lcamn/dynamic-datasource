@@ -88,6 +88,14 @@ public class DocUtil {
     }
 
 
+    public static String checkPath(String path) {
+        char c = path.charAt(path.length() - 1);
+        if (!(c == '\\')) {
+            path = path + "\\";
+        }
+        return path;
+    }
+
     public static String copyFile(String path) throws Exception {
         File sourceFile = new File(path);
         String newFileDirectory = path + "新建" + LocalDate.now().getDayOfMonth();
@@ -121,7 +129,7 @@ public class DocUtil {
                 out.write(flush, 0, len);
             }
         }
-        System.out.println("完成");
+        System.out.println("文件复制完成");
         if (out != null) {
             out.flush();
             out.close();
