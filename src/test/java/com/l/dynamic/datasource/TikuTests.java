@@ -1,6 +1,7 @@
 package com.l.dynamic.datasource;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hankcs.hanlp.restful.HanLPClient;
 import com.l.dynamic.datasource.entity.Tiao;
 import com.l.dynamic.datasource.model.TiaoZhan;
 import com.l.dynamic.datasource.service.TiaoZhanService;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.TemporalAdjusters;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -62,45 +60,10 @@ class TikuTests {
         System.out.println(list.size());
     }
 
-    @Test
-    public void tts() {
-        LocalDateTime lastMonth = LocalDateTime.now().minusMonths(1);
-        LocalDateTime startTime = LocalDateTime.of(LocalDate.of(lastMonth.getYear(), lastMonth.getMonth(), 1), LocalTime.of(23, 59, 59));
-        LocalDateTime endTime = LocalDateTime.of(LocalDate.of(lastMonth.getYear(), lastMonth.getMonth(), 1).with(TemporalAdjusters.lastDayOfMonth()), LocalTime.of(23, 59, 59));
-
-        System.out.println(lastMonth + "  " + startTime + "   " + endTime);
-
-    }
 
     @Test
-    void testIf() {
-        int one = 0, three = 0, six = 0, twelve = 0, more = 0;
-        ArrayList<Integer> leaveList = new ArrayList<>();
-        leaveList.add(0);
-        leaveList.add(1);
-        leaveList.add(3);
-        leaveList.add(4);
-        leaveList.add(6);
-        leaveList.add(7);
-        leaveList.add(8);
-        leaveList.add(9);
-        leaveList.add(13);
-        for (Integer user : leaveList) {
-            int month = user;
-            if (month <= 1) {
-                one++;
-            } else if (month <= 3) {
-                three++;
-            } else if (month <= 6) {
-                six++;
-            } else if (month <= 12) {
-                twelve++;
-            } else {
-                more++;
-            }
-        }
-
-        System.out.println(one + " " + three + "  " + six + " " + twelve + " " + more);
+    void xin() throws IOException {
+        HanLPClient client = new HanLPClient("https://hanlp.hankcs.com/api", null); // Replace null with your auth
+        System.out.println(client.parse("2021年HanLPv2.1为生产环境带来次世代最先进的多语种NLP技术。晓美焰来到北京立方庭参观自然语义科技公司。"));
     }
-
 }

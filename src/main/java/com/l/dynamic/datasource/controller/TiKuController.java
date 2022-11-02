@@ -37,10 +37,11 @@ public class TiKuController {
     }
 
 
-    @PostMapping("/tiao")
-    public Res<List<TiaoZhan>> tiao() {
+    @GetMapping("/tiao")
+    public String tiao() {
         List<TiaoZhan> list = tiaoZhanService.getAllTiao();
-        return Res.ok(list);
+        JSONArray array = JSONArray.parseArray(JSON.toJSONString(list));
+        return array.toString();
     }
 
     @PostMapping("/syncNet")
@@ -58,8 +59,7 @@ public class TiKuController {
 
     @GetMapping("/net")
     public String getNetQuestions() {
-        String s = FileUtil.readFileByChars("tiku2.json");
-
+        String s = FileUtil.readFileByChars("排序2.json");
         JSONObject jsonObject = JSONObject.parseObject(s);
         ArrayList<TiaoZhan> list = new ArrayList<>();
         for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
@@ -70,7 +70,6 @@ public class TiKuController {
             String answer = (String) entry.getValue();
             tiaozhan.setQuestion(question).setAnswer(answer).setOption(option);
             list.add(tiaozhan);
-
 
         }
         tiaoZhanService.sync(list);

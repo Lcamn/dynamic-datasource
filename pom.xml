@@ -104,14 +104,19 @@
             <artifactId>javase</artifactId>
             <version>3.3.0</version>
         </dependency>
-
-
-        <!-- Sa-Token 权限认证, 在线文档：http://sa-token.dev33.cn/ -->
         <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-spring-boot-starter</artifactId>
-            <version>1.28.0</version>
+            <groupId>com.baidubce</groupId>
+            <artifactId>api-explorer-sdk</artifactId>
+            <version>1.0.3.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.hankcs.hanlp.restful</groupId>
+            <artifactId>hanlp-restful</artifactId>
+            <version>0.0.12</version>
+        </dependency>
+
+
         <!-- Sa-Token 整合 Redis (使用 jackson 序列化方式) -->
         <!--        <dependency>-->
         <!--            <groupId>cn.dev33</groupId>-->
@@ -180,6 +185,13 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
 
     </dependencies>
     <repositories>

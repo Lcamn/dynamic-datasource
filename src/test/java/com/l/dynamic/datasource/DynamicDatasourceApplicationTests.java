@@ -72,8 +72,8 @@ class DynamicDatasourceApplicationTests {
 
         AlipayDataBillAccountlogQueryRequest request = new AlipayDataBillAccountlogQueryRequest();
         request.setBizContent("{" +
-                "  \"start_time\":\"2022-06-01 00:00:00\"," +
-                "  \"end_time\":\"2022-06-12 23:00:00\"" +
+                "  \"start_time\":\"2022-07-25 00:00:00\"," +
+                "  \"end_time\":\"2022-08-15 23:00:00\"" +
                 "}");
         AlipayDataBillAccountlogQueryResponse response = alipayClient.execute(request);
         System.out.println(response);
