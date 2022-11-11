@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.l.dynamic.datasource.mapper.TicketsMapper">
+
+    <resultMap type="com.l.dynamic.datasource.model.Tickets" id="TicketsMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="ticketNum" column="ticket_num" jdbcType="VARCHAR"/>
+        <result property="checkNum" column="check_num" jdbcType="VARCHAR"/>
+        <result property="startingStation" column="starting_station" jdbcType="VARCHAR"/>
+        <result property="trainNum" column="train_num" jdbcType="VARCHAR"/>
+        <result property="destinationStation" column="destination_station" jdbcType="VARCHAR"/>
+        <result property="startingStationEn" column="starting_station_en" jdbcType="VARCHAR"/>
+        <result property="destinationStationEn" column="destination_station_en" jdbcType="VARCHAR"/>
+        <result property="dateAndTime" column="date_and_time" jdbcType="VARCHAR"/>
+        <result property="dateTime" column="date_time" jdbcType="TIMESTAMP"/>
+        <result property="seatNum" column="seat_num" jdbcType="VARCHAR"/>
+        <result property="ticketRates" column="ticket_rates" jdbcType="VARCHAR"/>
+        <result property="buyType" column="buy_type" jdbcType="VARCHAR"/>
+        <result property="seatCategory" column="seat_category" jdbcType="VARCHAR"/>
+        <result property="seatCategoryNum" column="seat_category_num" jdbcType="VARCHAR"/>
+        <result property="seatLevel" column="seat_level" jdbcType="VARCHAR"/>
+        <result property="ticketType" column="ticket_type" jdbcType="VARCHAR"/>
+        <result property="idAndName" column="id_and_name" jdbcType="VARCHAR"/>
+        <result property="idNum" column="id_num" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="box1" column="box1" jdbcType="VARCHAR"/>
+        <result property="box2" column="box2" jdbcType="VARCHAR"/>
+        <result property="serialAndSellStation" column="serial_and_sell_station" jdbcType="VARCHAR"/>
+        <result property="serialNum" column="serial_num" jdbcType="VARCHAR"/>
+        <result property="sellStation" column="sell_station" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+</mapper>
+

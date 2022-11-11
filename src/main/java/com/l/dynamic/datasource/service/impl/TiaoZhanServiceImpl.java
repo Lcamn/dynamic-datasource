@@ -27,7 +27,7 @@ public class TiaoZhanServiceImpl extends ServiceImpl<TiaoZhanMapper, TiaoZhan> i
     public int sync(ArrayList<TiaoZhan> list) {
         int delete = tiaoZhanMapper.delete(null);
         System.out.println("已删除： " + delete);
-        this.saveBatch(list);
+        tiaoZhanMapper.insertBatchSomeColumn(list);
         return list.size();
     }
 }

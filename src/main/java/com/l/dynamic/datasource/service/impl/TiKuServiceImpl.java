@@ -6,7 +6,6 @@ import com.l.dynamic.datasource.mapper.TiKuMapper;
 import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TiKuService;
 import com.l.dynamic.datasource.utils.FileUtil;
-import com.l.dynamic.datasource.utils.HttpOk;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +20,6 @@ public class TiKuServiceImpl extends ServiceImpl<TiKuMapper, Tiku> implements Ti
     @Autowired
     private TiKuMapper tiKuMapper;
 
-    @Override
-    public List<Tiku> find() {
-        return tiKuMapper.selectList(null);
-    }
 
     @Override
     public Integer sync() {
@@ -57,30 +52,6 @@ public class TiKuServiceImpl extends ServiceImpl<TiKuMapper, Tiku> implements Ti
         return i;
     }
 
-    @Override
-    public Integer save() {
-        Tiku tiku = new Tiku()
-                .setQuestion("question")
-                .setAnswer("as")
-                .setOption("op")
-                .setWronganswer("w")
-                .setDatetime("2022-01-11 14:15:51");
-        return tiKuMapper.insert(tiku);
-    }
-
-    @Override
-    public void test(String sql) {
-        int i = tiKuMapper.test(sql);
-        log.info("数量。{}", i);
-    }
-
-    @Override
-    public Integer syncNet() {
-        String s = HttpOk.doGet("https://tiku.3141314.xyz/getAnswer");
-        tiKuMapper.delete(null);
-        return updateByNet(s);
-
-    }
 
 
 }

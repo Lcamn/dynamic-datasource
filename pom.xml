@@ -59,7 +59,11 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>${sqlite.jdbc.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>3.1.2</version>
+        </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot-starter</artifactId>

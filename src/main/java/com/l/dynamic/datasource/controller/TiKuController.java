@@ -5,15 +5,16 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.l.dynamic.datasource.entity.Res;
 import com.l.dynamic.datasource.model.TiaoZhan;
-import com.l.dynamic.datasource.model.Tiku;
 import com.l.dynamic.datasource.service.TiKuService;
 import com.l.dynamic.datasource.service.TiaoZhanService;
 import com.l.dynamic.datasource.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,12 +25,12 @@ public class TiKuController {
     @Autowired
     private TiaoZhanService tiaoZhanService;
 
-    @PostMapping("/find")
-    public Res<List<Tiku>> find() {
-        List<Tiku> list = tiKuService.find();
-        return Res.ok(list);
-    }
 
+    /**
+     * 更新本地题库
+     *
+     * @return
+     */
     @PostMapping("/sync")
     public Res<Integer> sync() {
         Integer i = tiKuService.sync();
@@ -37,26 +38,11 @@ public class TiKuController {
     }
 
 
-    @GetMapping("/tiao")
-    public String tiao() {
-        List<TiaoZhan> list = tiaoZhanService.getAllTiao();
-        JSONArray array = JSONArray.parseArray(JSON.toJSONString(list));
-        return array.toString();
-    }
-
-    @PostMapping("/syncNet")
-    public Res<Integer> syncNet() {
-        Integer i = tiKuService.syncNet();
-        System.out.println("---------------------------");
-        return Res.ok(i);
-    }
-
-
-    @PostMapping("/test")
-    public void test(@RequestParam("sql") String sql) {
-        tiKuService.test(sql);
-    }
-
+    /**
+     * 同步题库 接口(手机用)
+     *
+     * @return
+     */
     @GetMapping("/net")
     public String getNetQuestions() {
         String s = FileUtil.readFileByChars("排序2.json");
@@ -77,8 +63,5 @@ public class TiKuController {
         return array.toString();
     }
 
-    @GetMapping("paixu")
-    public int getPaixu() {
-        return 0;
-    }
+
 }

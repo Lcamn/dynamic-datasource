@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.l.dynamic.datasource.mapper.DoubanCalenderMapper">
+
+    <resultMap type="com.l.dynamic.datasource.model.DoubanCalender" id="DoubanCalenderMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="movieName" column="movie_name" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="VARCHAR"/>
+        <result property="scorePeople" column="score_people" jdbcType="VARCHAR"/>
+        <result property="movieInfo" column="movie_info" jdbcType="VARCHAR"/>
+        <result property="calendarDate" column="calendar_date" jdbcType="VARCHAR"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="coverLink" column="cover_link" jdbcType="VARCHAR"/>
+        <result property="movieLink" column="movie_link" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+</mapper>
+

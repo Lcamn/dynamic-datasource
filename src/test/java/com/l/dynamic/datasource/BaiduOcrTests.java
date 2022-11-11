@@ -2,6 +2,8 @@ package com.l.dynamic.datasource;
 
 
 import com.alibaba.fastjson.JSON;
+import com.l.dynamic.datasource.entity.TcentParam;
+import com.l.dynamic.datasource.entity.Ticket;
 import com.l.dynamic.datasource.entity.WordAndResult;
 import com.l.dynamic.datasource.entity.WordResult;
 import com.l.dynamic.datasource.utils.AuthUtil;
@@ -11,7 +13,9 @@ import com.l.dynamic.datasource.utils.HttpUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.lang.reflect.Field;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -33,23 +37,37 @@ class BaiduOcrTests {
             String param = "image=" + imgParam;
             System.out.println(AuthUtil.getAuth());
 
-            // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
+            // 获取accessToken
             String accessToken = AuthUtil.getAuth();
 
             String result = HttpUtil.post(url, accessToken, param);
 
             WordResult re = JSON.parseObject(result, WordResult.class);
             System.out.println(re);
-
+            Ticket ticket = new Ticket();
+            Field[] field = ticket.getClass().getDeclaredFields();
             List<WordAndResult> wordsResult = re.getWords_result();
-            for (WordAndResult wordAndResult : wordsResult) {
-                System.out.println(wordAndResult.getWords());
+
+            for (int i = 0; i < wordsResult.size(); i++) {
+                String words = wordsResult.get(i).getWords();
+                field[i].setAccessible(true);
+                //给属性赋值
+                field[i].set(ticket, field[i].getType().getConstructor(field[i].getType()).newInstance(words));
             }
+            System.out.println(ticket);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+    @Test
+    void tes() {
+        Date date = new Date();
+        String timestamp = date.getTime() + "";
+        TcentParam param = new TcentParam();
+        param.setTimestamp(timestamp);
+    }
 
 }
