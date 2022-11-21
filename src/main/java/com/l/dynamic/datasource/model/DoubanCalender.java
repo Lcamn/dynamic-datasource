@@ -49,6 +49,9 @@ public class DoubanCalender extends Model<DoubanCalender> {
    */
   @ExcelProperty(value = "日期")
   private String calendarDate;
+
+  @ExcelProperty(value = "纪念日")
+  private String memorial;
   /**
    * 评价
    */

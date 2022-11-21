@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @SpringBootTest
@@ -19,18 +21,48 @@ class DoubanTests {
     private DoubanCalenderMapper doubanCalenderMapper;
 
     @Test
-    public void readExcel() throws Exception {
+    public void readExcelAndSave() throws Exception {
         // 读取excel
-        String fileName = "E:\\Download\\豆瓣\\" + "豆瓣日历_2017.xlsx";
+        String[] location = { "E:\\Download\\豆瓣\\" + "豆瓣日历_2019.xlsx", "E:\\Download\\豆瓣\\" + "豆瓣日历_2020.xlsx", "E:\\Download\\豆瓣\\" + "豆瓣日历_2021.xlsx", "E:\\Download\\豆瓣\\" + "豆瓣日历_2022.xlsx", };
+        System.out.println(Arrays.toString(location));
+        for (String lo : location) {
+            DoubleCalenderListener listener = new DoubleCalenderListener();
+            EasyExcel.read(lo, DoubanCalender.class, listener).sheet().doRead();
+            List<DoubanCalender> list = listener.list();
+            doubanCalenderMapper.insertBatchSomeColumn(list);
+        }
+
+    }
 
 
-        // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
-        DoubleCalenderListener listener = new DoubleCalenderListener();
-        EasyExcel.read(fileName, DoubanCalender.class, listener).sheet().doRead();
-        List<DoubanCalender> list = listener.list();
-        doubanCalenderMapper.insertBatchSomeColumn(list);
+    @Test
+    public void update() {
+        List<DoubanCalender> calenderList = doubanCalenderMapper.selectList(null);
+        List<Long> longs = calenderList.stream().filter(s -> s.getComment().contains("—")).map(DoubanCalender::getId).collect(Collectors.toList());
+        for (DoubanCalender it : calenderList) {
+            String comment = it.getComment();
+            String memorial = it.getMemorial();
+
+            try {
 
 
+            } catch (Exception e) {
+
+                log.error("报错了。。{}", comment);
+            }
+
+
+        }
+
+    }
+
+    @Test
+    public void tt() {
+        String calendarDate = "2019.02.25【第91届奥斯卡金像奖颁奖典礼】";
+        String datetime = calendarDate.substring(0, calendarDate.indexOf('【'));
+        String mem = calendarDate.substring(calendarDate.indexOf('【'));
+        System.out.println(datetime);
+        System.out.println(mem);
     }
 
 }
