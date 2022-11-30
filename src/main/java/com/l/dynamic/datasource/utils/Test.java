@@ -17,14 +17,50 @@ import java.util.Random;
 
 public class Test {
     private static final String FONT = "C:\\Windows\\Fonts\\simhei.ttf";
-    // 20 以内乘法
+
 
     public static void main(String[] args) throws Exception {
 
         // multiplication();
         // AdditionAndSubtraction();
 
-        PDFUtil.deletePDFEncrypt("C:\\Users\\L\\Desktop\\新建文件夹 (2)\\2020年国家公务员考试行测真题及答案（副省级）.pdf", "C:\\Users\\L\\Desktop\\新建文件夹 (2)\\a.pdf");
+
+        String path = "C:\\Users\\L\\Desktop\\新建文件夹 (2)\\";
+        String targetPath = "C:\\Users\\L\\Desktop\\新建文件夹 (2)\\解密\\";
+        String lastPath = "C:\\Users\\L\\Desktop\\新建文件夹 (2)\\剪裁\\";
+        File file = new File(path);
+        File[] files = file.listFiles();
+
+        File lastFile = new File(targetPath);
+        File[] lastFiles = lastFile.listFiles();
+
+        for (File f : files) {
+            if (f.isDirectory()) {
+                continue;
+            }
+            String newName = f.getName();
+            String oldName = f.getName();
+
+            newName = newName.replaceAll("（", "(").replaceAll("）", ")");
+            newName = newName.substring(0, 5) + newName.substring(newName.indexOf("("), newName.indexOf(")") + 1) + ".pdf";
+            PDFUtil.deletePDFEncrypt(path + oldName, targetPath + newName);
+        }
+
+        for (File f : lastFiles) {
+            if (f.isDirectory()) {
+                continue;
+            }
+
+            String oldName = f.getName();
+            int year = Integer.parseInt(oldName.substring(0, 4));
+            if (year < 2021) {
+                PDFUtil.splitPDF(targetPath + oldName, lastPath + oldName);
+            }
+
+        }
+
+
+        System.out.println("all done！");
 
     }
 

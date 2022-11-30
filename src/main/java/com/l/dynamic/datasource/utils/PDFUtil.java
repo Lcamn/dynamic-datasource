@@ -6,26 +6,18 @@ import com.itextpdf.text.pdf.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PDFUtil {
 
-    public static void splitPDF() throws Exception {
+    public static void splitPDF(String sourceFile, String newFullName) throws Exception {
         Document document;
         PdfCopy copy;
-        String pdfFile = "E:\\临时文件夹\\测试写文件\\write1 - 副本.pdf";
 
-        PdfReader reader = new PdfReader(pdfFile);
+        PdfReader reader = new PdfReader(sourceFile);
         int from = 2;
-        int n = reader.getNumberOfPages();
-        List<String> savePaths = new ArrayList<>();
-        int a = pdfFile.lastIndexOf(".pdf");
-        String staticPath = pdfFile.substring(0, a);
-        String savePath = staticPath + "_from_" + from + "_to_" + n + "_.pdf";
-        savePaths.add(savePath);
+        int n = reader.getNumberOfPages() - 1;
         document = new Document(reader.getPageSize(1));
-        copy = new PdfCopy(document, Files.newOutputStream(Paths.get(savePaths.get(0))));
+        copy = new PdfCopy(document, Files.newOutputStream(Paths.get(newFullName)));
         document.open();
         for (int j = from; j <= n; j++) {
             document.newPage();
@@ -33,6 +25,7 @@ public class PDFUtil {
             copy.addPage(page);
         }
         document.close();
+        System.out.println("剪裁完成");
 
     }
 
