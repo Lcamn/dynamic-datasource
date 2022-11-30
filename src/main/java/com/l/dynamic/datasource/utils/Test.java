@@ -22,7 +22,9 @@ public class Test {
     public static void main(String[] args) throws Exception {
 
         // multiplication();
-        AdditionAndSubtraction();
+        // AdditionAndSubtraction();
+
+        PDFUtil.deletePDFEncrypt("C:\\Users\\L\\Desktop\\新建文件夹 (2)\\2020年国家公务员考试行测真题及答案（副省级）.pdf", "C:\\Users\\L\\Desktop\\新建文件夹 (2)\\a.pdf");
 
     }
 
@@ -33,8 +35,8 @@ public class Test {
         String path = "E:\\临时文件夹\\测试写文件\\write1.txt";
         int sum = 1000;
         for (int i = 0; i < sum; i++) {
-            int j = random.nextInt(100);
-            int k = random.nextInt(100);
+            int j = random.nextInt(1000);
+            int k = random.nextInt(1000);
             int s = random.nextInt(2);// 0:减法 1：加法
 
             if (j < k) {
@@ -51,22 +53,24 @@ public class Test {
             }
             questionList.add(question);
         }
-        StringBuilder builder = new StringBuilder();
-        StringBuilder builder2 = new StringBuilder();
+        StringBuilder questionBuild = new StringBuilder();
+        StringBuilder answerBuild = new StringBuilder();
         for (int i = 0; i < answer.size(); i++) {
-            builder.append(i).append("、").append(questionList.get(i)).append("  ");
-            builder2.append(i).append(". ").append(answer.get(i)).append("    ");
+            questionBuild.append("(").append(i).append("). ").append(questionList.get(i)).append("    ");
+            answerBuild.append("(").append(i).append("). ").append(answer.get(i)).append("    ");
             if (i % 5 == 0) {
-                builder2.append("\n");
-                builder.append("\n");
+                answerBuild.append("\n");
+            }
+            if (i % 3 == 0) {
+                questionBuild.append("\n");
             }
 
         }
 
-        String write = builder + "\n" + builder2;
+        String write = questionBuild + "\n" + answerBuild;
         WriteUtil.fileWriterTest(path, write);
-
-        text2pdf(path, path + ".pdf");
+        String pre = path.substring(0, path.lastIndexOf("."));
+        text2pdf(path, pre + ".pdf");
         System.out.println("完毕");
     }
 
